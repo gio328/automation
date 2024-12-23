@@ -20,8 +20,7 @@ def send_text(msg):
         # and set the environment variables. See http://twil.io/secure
         # account_sid = os.environ["TWILIO_ACCOUNT_SID"]
         # auth_token = os.environ["TWILIO_AUTH_TOKEN"]
-        account_sid = "AC42716dcbc821ae61735f79b13e36f9e7"
-        auth_token = "a1aa2b32799802904f83c1ca9e21e337"
+    
         client = Client(account_sid, auth_token)
 
         message = client.messages.create(
@@ -37,6 +36,7 @@ def send_text(msg):
         print(f'An error occurred: {e}')
 
     print(message.body)
+
 
 
 # If modifying these SCOPES, delete the file token.pickle.
