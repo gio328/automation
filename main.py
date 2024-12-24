@@ -18,9 +18,9 @@ def send_text(msg):
     try:
         # Find your Account SID and Auth Token at twilio.com/console
         # and set the environment variables. See http://twil.io/secure
-        # account_sid = os.environ["TWILIO_ACCOUNT_SID"]
-        # auth_token = os.environ["TWILIO_AUTH_TOKEN"]
-    
+        account_sid = os.environ["TWILIO_ACCOUNT_SID"]
+        auth_token = os.environ["TWILIO_AUTH_TOKEN"]
+        
         client = Client(account_sid, auth_token)
 
         message = client.messages.create(
@@ -79,23 +79,23 @@ def main():
         before_date = first_day_of_next_month.strftime('%Y/%m/%d')
 
         # Print the dates for debugging
-        print(f'After date: {after_date}')
-        print(f'Before date: {before_date}')
+        # print(f'After date: {after_date}')
+        # print(f'Before date: {before_date}')
 
         # Search for emails with a specific subject within the current month
         query = f'subject:"You made a payment" from:alerts@notify.wellsfargo.com  after:{after_date} before:{before_date}'
 
-        print(f'query: {query}')
+        # print(f'query: {query}')
         results = service.users().messages().list(userId='me', q=query).execute()
         messages = results.get('messages', [])
 
 
         if not messages:
             print('No messages found.')
-            send_text('Did not receive any payment notifications from Wells Fargo this month.')
+            send_text('DID NOT receive payment notifications from Wells Fargo this month.')
         
         else:
-            send_text('Received payment notifications from Wells Fargo this month.')
+            send_text('You received payment notifications from Wells Fargo this month.')
             print('Messages:')
             for message in messages:
                 msg = service.users().messages().get(userId='me', id=message['id']).execute()
